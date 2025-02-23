@@ -212,7 +212,7 @@ class NewsController extends Controller
         $username = $news->get()->toArray()[0]["user_news"]["nama"];
         return view('news-by-user', [
             'title'=> 'nothing',
-            'news'  => $news->get(),
+            'news'  => $news->paginate(6),
             'categories' => $categories,
             'carousels' => $categories,
             'username' => $username
@@ -255,7 +255,7 @@ class NewsController extends Controller
     public function getNewsUser(Request $request, $id){
         $categories = Category::all();
         $id_user = $request->session()->get('id');
-        $news = News::where('user_id', $id_user)->get();
+        $news = News::where('user_id', $id_user)->paginate(6);
         return view('user-news', [
             'title'=> 'Berita',
             'news' => $news,
