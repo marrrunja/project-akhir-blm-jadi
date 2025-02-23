@@ -18,15 +18,10 @@ class NewsController extends Controller
     public function index():Response
     {
         $categories = Category::all();
-        // $news = News::all();
-        $carousels = News::offset(0)->limit(6)->orderby('id', 'DESC')->get();
-        $randomNews = News::where('category_id',random_int(1,3));
-        $firstRandomNews = $randomNews->get()->toArray()[0];
+        $carousels = News::offset(0)->limit(3)->orderby('id', 'DESC')->get();
+        $randomNews = News::where('category_id',random_int(1,3))->latest();
+        $firstRandomNews = $randomNews->get()->toArray()[random_int(0,count($randomNews->get())-1)];
         $news = News::paginate(10);
-        // $sports = News::where('category_id', 1)->offset(0)->limit(3)->get();
-        // $healths = News::where('category_id', 2)->offset(0)->limit(3)->get();
-        // $culinary = News::where('category_id',3)->offset(0)->limit(1)->orderby('id', 'DESC')->get()->toArray()[0];
-        //News::filter(request(['search']))->latest()->get(),
         return response()
             ->view('news', [
                 'title'=> 'berita',
@@ -35,10 +30,6 @@ class NewsController extends Controller
                 'categories' => $categories,
                 'randomNews' => $randomNews->get(),
                 'firstRandomNews' => $firstRandomNews
-                // 'class' => 'index-page',
-                // 'sports' => $sports,
-                // 'culinary' => $culinary,
-                // 'healths' => $healths
             ]);
     }
     public function redirectForm(){
@@ -92,19 +83,40 @@ class NewsController extends Controller
         }
     }
 
+    private function checkIsIdEmpty($id):bool{
+        $idDatabase = [];
+        $news = News::all();
+        foreach($news as $n){
+            array_push($idDatabase, $n->id);
+        }
+        return in_array($id, $idDatabase);
+    }
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
+       if(!$this->checkIsIdEmpty($id)){
+            return redirect('/news');
+       }
+
         $beritaTerbaru = News::offset(0)->limit(6)->orderby('id', 'DESC')->get();
         $categories = Category::all();
-        $newsOne = News::where('id', $id)->get()->first();
+        $newsOne = News::where('id', $id)->get();
+        
+        $likeUser = News::where('id','<>', $id )
+        ->where('category_id',$newsOne->toArray()[0]["category_id"])
+        ->offset(0)
+        ->limit(5)
+        ->inRandomOrder()->get();
+        
+
         return view('detail-news', [
             'title' => 'Detail berita',
-            'news' => $newsOne,
+            'news' => $newsOne->first(),
             'categories' => $categories,
-            'beritaTerbaru' => $beritaTerbaru
+            'beritaTerbaru' => $beritaTerbaru,
+            'likeUser' => $likeUser
         ]);
     }
     /**
@@ -112,6 +124,9 @@ class NewsController extends Controller
      */
     public function edit(string $id)
     {
+        if(!$this->checkIsIdEmpty($id)){
+            return redirect('/news');
+        }
         $categories = Category::all();
         $news = News::find($id);
         return view('edit', [
@@ -124,6 +139,7 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     private function isEmptyGambar($data){
         return empty($data);
     }
@@ -179,35 +195,53 @@ class NewsController extends Controller
         return back()->with('status', 'Berhasil menghapus data data');
     }
 
+    private function checkUserIdIsEmpty($id):bool{
+        $idDatabase = [];
+        $users = User::all();
+        foreach($users as $user){
+            array_push($idDatabase, $user->id);
+        }
+        return in_array($id, $idDatabase);
+    }
+
     public function getAllNews(int $id){
+        if(!$this->checkUserIdIsEmpty($id)){
+            return redirect('/news');
+        }
         $categories = Category::all();
-        $news = News::where('user_id', $id)->get();
-        $username = User::where('id', $id)->get()->toArray()[0]["nama"];
+        $news = News::where('user_id', $id);
+        $username = $news->get()->toArray()[0]["user_news"]["nama"];
         return view('news-by-user', [
             'title'=> 'nothing',
-            'news'  => $news,
+            'news'  => $news->get(),
             'categories' => $categories,
             'carousels' => $categories,
             'username' => $username
         ]);
     }
 
-    // public function getNewsKategori($id){
-    //     $categories = Category::all();
-    //     $news = News::where('category_id', $id);
-    //     return view('news', [
-    //         'title' => 'kategori news',
-    //         'news' => $news,
-    //         'categories' => $categories,
-    //     ]);
-    // }
-    public function getNewsKategori(int $id){
+    private function emptyIdCategory($id):bool{
+        $idDatabase = [];
         $categories = Category::all();
-        $news = News::where('category_id', $id)->paginate(10);
+        foreach($categories as $category){
+            array_push($idDatabase, $category->id);
+        }
+        return in_array($id, $idDatabase);
+    }
+    public function getNewsKategori(int $id){
+        if(!$this->emptyIdCategory($id)){
+            return redirect('/news');
+        }
+        
+        $categories = Category::all();
+        $news = News::where('category_id', $id)->paginate(6);
         $categoryName = Category::where('id', $id)->get()->toArray()[0];
-        $sports = News::where('category_id', 1)->offset(0)->limit(2)->get();
-        $healths = News::where('category_id', 2)->offset(0)->limit(2)->get();
-        $culinaries = News::where('category_id',3)->offset(0)->limit(2)->orderby('id', 'DESC')->get();
+        $sports = News::where('category_id', 1)
+                        ->inRandomOrder()
+                        ->limit(2)->get();
+
+        $healths = News::where('category_id', 2)->inRandomOrder()->limit(2)->get();
+        $culinaries = News::where('category_id',3)->inRandomOrder()->limit(2)->orderby('id', 'DESC')->get();
          return view('category', [
             'title' => 'kategori news',
             'news' => $news,

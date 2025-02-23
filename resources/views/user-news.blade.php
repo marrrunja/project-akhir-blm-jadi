@@ -12,20 +12,20 @@
                 <li class="breadcrumb-item active" aria-current="page">{{ Session::get('nama') }}</li>
             </ol>
         </nav>
-        @if (Session::has('status'))
-        <div class="alert alert-success">
-            {{ Session::get('status') }}
-        </div>
-        @endif
-        @if (Session::has('error'))
-        <div class="alert alert-danger">
-            {{ Session::get('error') }}
-        </div>
-        @endif
         <h1 class="font-utama mt-4 mb-5">Berita Saya</h1>
         <div class="row gap-3 justify-content-center">
             @foreach($news as $berita)
             <div class="col-10 col-md-5 col-xl-3">
+                @if (Session::has('status'))
+                <div class="alert alert-success">
+                    {{ Session::get('status') }}
+                </div>
+                @endif
+                @if (Session::has('error'))
+                <div class="alert alert-danger">
+                    {{ Session::get('error') }}
+                </div>
+                @endif
                 <div class="card">
                     <img src="{{ asset('storage/images/' . $berita->gambar) }}" class="card-img-top"
                         alt="{{ $berita->gambar }}">

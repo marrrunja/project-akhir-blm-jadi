@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-       @include('templateku.navbar')
+       @include('template.navbar')
        @yield('body')
     </div>
 </body>

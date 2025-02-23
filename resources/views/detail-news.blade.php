@@ -1,15 +1,14 @@
 @extends('template')
 
 @section('title', $title)
-
 @section('body')
 <section id="berita" class="pt-5 pb-5">
     <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/news">Home</a>
-            </li>
-            <li class="breadcrumb-item">News
+                </li>
+                <li class="breadcrumb-item">News
                 <li class="breadcrumb-item active" aria-current="page">{{ $news->judul }}</li>
             </ol>
         </nav>
@@ -26,7 +25,7 @@
                             <figcaption class="figure-caption text-end fw-semibold text-secondary">
                                 {{ \Carbon\Carbon::parse($news->created_at)->translatedFormat('d F Y')}}</figcaption>
                         </div>
-    
+
                     </figure>
                 </div>
                 <div class="mt-3 text-wrap lh-lg">
@@ -40,15 +39,39 @@
                     @foreach($beritaTerbaru as $new)
                     <li class="list-group-item d-flex gap-2 align-items-center overflow-hidden">
                         <img src="{{ asset('storage/images/' . $new->gambar) }}" width="150px" alt="Gambar Berita">
-                        <a href="/news/{{ $new->id }}"
-                            class="text-dark text-decoration-none link-new-berita">{{ $new->judul }}
+                        <div>
+                            <a href="/news/{{ $new->id }}"
+                                class="text-dark text-decoration-none link-category-berita">{{ $new->judul }}
+                            </a>
                             <small class="d-block text-secondary">{{ $new->created_at->diffForHumans() }}</small>
-                        </a>
+                        </div>
                     </li>
                     @endforeach
                 </ul>
             </div>
         </div>
     </div>
+</section>
+<section id="terkait" class="bg-white pt-5 pb-5">
+    <div class="container ps-3">
+        <h1 class="mb-4">Berita terkait</h1>
+        <div class="row justify-content-center">
+            <div class="col-12 mx-auto">
+                <div class="row justify-content-center flex-wrap gap-4">
+                    @foreach($likeUser as $like)
+                    <div class="col-sm-12 col-md-8 col-xl-3 overflow-hidden">
+                        <img src="{{ asset('storage/images/'.$like->gambar) }}" class="img-fluid rounded img-terkait" alt="{{ $like->judul }}">
+                        <div class="text-wrap" style="width:200px;">
+                            <a href="/news/{{ $like->id }}"
+                                class="text-dark fw-semibold text-decoration-none link-category-berita">{{ $like->judul }}</a>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+              
+            </div>
+        </div>
+    </div>
+
 </section>
 @endsection

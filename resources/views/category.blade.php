@@ -5,7 +5,7 @@
 
 @section('body')
 <section id="category" class="pt-5 pb-5">
-    <div class="container pt-5">
+    <div class="container">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/news">Home</a></li>
@@ -23,7 +23,7 @@
             <div class="col-12 col-md-12 col-xl-8 mb-2 mb-md-5">
                 <div class="row justify-content-center">
                     @foreach($news as $berita)
-                    <div class="col-12 col-md-12 col-xl-4">
+                    <div class="col-12 col-md-12 col-xl-4 mb-3">
                         <div class="card border-0 shadow-sm">
                             <img src="{{ asset('storage/images/' . $berita->gambar) }}" alt="{{ $berita->gambar }}"
                                 class="card-img-top">
@@ -51,30 +51,39 @@
                     @foreach($sports as $sport)
                     <li class="list-group-item d-flex gap-2 align-items-center overflow-hidden">
                         <img src="{{ asset('storage/images/' . $sport->gambar) }}" width="150px" alt="Gambar Berita">
-                        <a href="/news/{{ $sport->id }}"
-                            class="text-dark text-decoration-none link-sport-berita">{{ $sport->judul }}
+                        <div>
+
+                            <a href="/news/{{ $sport->id }}"
+                                class="text-dark text-decoration-none link-category-berita">{{ $sport->judul }}
+                            </a>
                             <small class="d-block text-secondary">{{ $sport->kategoriNews->kategori }}</small>
-                        </a>
+                        </div>
 
                     </li>
                     @endforeach
                     @foreach($healths as $health)
                     <li class="list-group-item d-flex gap-2 align-items-center overflow-hidden">
                         <img src="{{ asset('storage/images/' . $health->gambar) }}" width="150px" alt="Gambar Berita">
-                        <a href="/news/{{ $health->id }}"
-                            class="text-dark text-decoration-none link-health-berita">{{ $health->judul }}
+                        <div>
+
+                            <a href="/news/{{ $health->id }}"
+                                class="text-dark text-decoration-none link-category-berita">{{ $health->judul }}
+                            </a>
                             <small class="d-block text-secondary">{{ $health->kategoriNews->kategori }}</small>
-                        </a>
+                        </div>
 
                     </li>
                     @endforeach
                     @foreach($culinaries as $culinary)
                     <li class="list-group-item d-flex gap-2 align-items-center overflow-hidden">
                         <img src="{{ asset('storage/images/' . $culinary->gambar) }}" width="150px" alt="Gambar Berita">
-                        <a href="/news/{{ $culinary->id }}"
-                            class="text-dark text-decoration-none link-culinary-berita">{{ $culinary->judul }}
+                        <div>
+
+                            <a href="/news/{{ $culinary->id }}"
+                                class="text-dark text-decoration-none link-category-berita">{{ $culinary->judul }}
+                            </a>
                             <small class="d-block text-secondary">{{ $culinary->kategoriNews->kategori }}</small>
-                        </a>
+                        </div>
 
                     </li>
                     @endforeach

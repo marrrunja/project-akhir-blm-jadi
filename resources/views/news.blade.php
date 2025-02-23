@@ -10,6 +10,7 @@
             <li class="breadcrumb-item active" aria-current="page">Home</li>
         </ol>
     </nav>
+    <h1>Portal Berita</h1>
     <div class="enigma-wrapper">
         <main class="enigma-layout">
             <div class="enigma-main">
@@ -20,7 +21,7 @@
                         class="enigma-feature-img">
                     <div class="enigma-feature-text">
                         <span class="enigma-tag">{{ $carousel->kategoriNews->kategori }}</span>
-                        <h3>{{ $carousel->judul }}</h3>
+                        <h3><a href="/news/{{ $carousel->id }}" class="text-white text-decoration-none">{{ $carousel->judul }}</a></h3>
                     </div>
                 </div>
                 @endforeach
@@ -29,7 +30,7 @@
                 <div class="enigma-spotlight">
                     <img src="{{ asset('storage/images/' . $firstRandomNews['gambar']) }}" alt="Space" class="enigma-spotlight-img">
                     <span class="enigma-tag">Trending</span>
-                    <h3>{{ $firstRandomNews["judul"] }}</h3>
+                    <h3><a href="/news/{{ $firstRandomNews['id'] }}" class="text-dark text-decoration-none link-category-berita">{{ $firstRandomNews["judul"] }}</a></h3>
                     <div class="enigma-pagination">
                         <span class="enigma-page-dot active"></span>
                         <span class="enigma-page-dot"></span>
@@ -42,7 +43,7 @@
                             <img src="{{ asset('storage/images/' . $random->gambar) }}" alt="Phone" class="enigma-news-thumbnail">
                             <div class="enigma-news-details">
                                 <span class="enigma-tag">{{ $random->kategoriNews->kategori }}</span>
-                                <h4 class="enigma-news-title">{{ $random->judul }}
+                                <h4 class="enigma-news-title"><a href="/news/{{ $random->id }}" class="text-dark text-decoration-none link-category-berita">{{ $random->judul }}</a>
                                 </h4>
                                 <p class="enigma-news-meta">{{ $random->created_at->diffForHumans() }}</p>
                             </div>
@@ -53,7 +54,6 @@
             </aside>
         </main>
     </div>
-    <h1>Portal Berita</h1>
     <div class="row mb-5 justify-content-center">
         <h3 class="mb-3">Terbaru</h3>
         <hr class="garis">
@@ -74,7 +74,6 @@
         @endforeach
     </div>
     <div class="row justify-content-center">
-        <h3 class="mb-3 text-start">Semua berita</h3>
         <hr class="garis">
         @foreach($news as $berita)
         <div class="col-10 col-md-5 col-xl-3 mb-2 mb-md-5">

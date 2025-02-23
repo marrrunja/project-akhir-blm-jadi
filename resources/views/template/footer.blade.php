@@ -12,9 +12,9 @@
       <!-- Kolom 2 -->
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
         <h5 class="text-uppercase mb-4 font-weight-bold text-white">Kategori</h5>
-        <p><a href="#!" class="text-white" style="text-decoration: none;">Olahraga</a></p>
-        <p><a href="#!" class="text-white" style="text-decoration: none;">Kesehatan</a></p>
-        <p><a href="#!" class="text-white" style="text-decoration: none;">Kuliner</a></p>
+        <p><a class="text-white" style="text-decoration: none;">Olahraga</a></p>
+        <p><a class="text-white" style="text-decoration: none;">Kesehatan</a></p>
+        <p><a class="text-white" style="text-decoration: none;">Kuliner</a></p>
       </div>
 
       <!-- Kolom 3 -->
@@ -23,15 +23,15 @@
         <p><a href="/news" class="text-white" style="text-decoration: none;">Beranda</a></p>
         <p><a href="/user/news/{{ Session::get('id') }}" class="text-white" style="text-decoration: none;">Berita Saya</a></p>
         <p><a href="/about" class="text-white" style="text-decoration: none;">Tentang Kami</a></p>
-        <p><a href="/kontak" class="text-white" style="text-decoration: none;">Kontak</a></p>
+        <p><a class="text-white" style="text-decoration: none;">Kontak</a></p>
       </div>
 
       <!-- Kolom 4 -->
       <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
         <h5 class="text-uppercase mb-4 font-weight-bold text-white">Kontak</h5>
-        <p><i class="fas fa-home mr-3"></i> Jakarta, Indonesia</p>
-        <p><i class="fas fa-envelope mr-3"></i> info@website.com</p>
-        <p><i class="fas fa-phone mr-3"></i> +62 812 3456 7890</p>
+        <p><i class="fas fa-home mr-3"></i> Jambi, Indonesia</p>
+        <p><i class="fas fa-envelope mr-3"></i> muammarirfan21@gmail.com</p>
+        <p><i class="fas fa-phone mr-3"></i> +62 822 5530 1884</p>
         <p><i class="fas fa-print mr-3"></i> +62 812 3456 7891</p>
       </div>
     </div>
