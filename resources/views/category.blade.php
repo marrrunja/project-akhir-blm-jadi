@@ -23,9 +23,9 @@
             <div class="col-12 col-md-12 col-xl-8 mb-2 mb-md-5">
                 <div class="row justify-content-center">
                     @foreach($news as $berita)
-                    <div class="col-12 col-md-12 col-xl-4 mb-3">
+                    <div class="col-10 col-md-6 col-xl-4 mb-3">
                         <div class="card border-0 shadow-sm">
-                            <img src="{{ asset('storage/images/' . $berita->gambar) }}" alt="{{ $berita->gambar }}"
+                            <img src="{{ asset('storage/images/' . $berita->gambar) }}" alt="{{ $berita->judul }}"
                                 class="card-img-top">
                             <div class="card-body">
                                 <h5 class="card-title"><a href="/news/{{ $berita->id }}"

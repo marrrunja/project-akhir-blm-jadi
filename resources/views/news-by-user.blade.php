@@ -24,7 +24,7 @@
         <div class="row gap-3 justify-content-center">
             @foreach($news as $berita)
             <div class="col-10 col-md-5 col-xl-3">
-                <div class="card">
+                <div class="card border-0 shadow-sm">
                     <img src="{{ asset('storage/images/' . $berita->gambar) }}" class="card-img-top"
                         alt="{{ $berita->gambar }}">
                     <div class="card-body">
@@ -34,7 +34,7 @@
                         <a href="/category/{{ $berita->kategoriNews->id }}">{{ $berita->kategoriNews->kategori }}</a>
                         <small>{{ $berita->created_at->diffForHumans() }}</small>
                         <p class="card-text">{{ Str::limit($berita->body,90) }}</p>
-                        <a href="/news/{{ $berita->id }}">Baca Selengkapnya &raquo</a>
+                        <a href="/news/{{ $berita->id }}" class="text-decoration-none link-category-berita">Baca Selengkapnya &raquo</a>
                     </div>
                 </div>
             </div>

@@ -25,12 +25,12 @@
                             <figcaption class="figure-caption text-end fw-semibold text-secondary">
                                 {{ \Carbon\Carbon::parse($news->created_at)->translatedFormat('d F Y')}}</figcaption>
                         </div>
-
                     </figure>
                 </div>
                 <div class="mt-3 text-wrap lh-lg">
                     {{ $news->body }}
                 </div>
+                <div class=""><a href="/news" class="text-decoration-none link-category-berita ">&laquo Kembali ke halaman utama</a></div>
             </div>
             <div class="col-12 col-md-12 col-xl-4">
                 <h3 class="mt-3 mt-md-3 mt-xl-0">Terbaru</h3>
@@ -52,21 +52,22 @@
         </div>
     </div>
 </section>
-<section id="terkait" class="bg-white pt-5 pb-5">
+<section id="terkait" class="bg-white pt-4 pb-5">
     <div class="container ps-3">
         <h1 class="mb-4">Berita terkait</h1>
         <div class="row justify-content-center">
             <div class="col-12 mx-auto">
                 <div class="row justify-content-center flex-wrap gap-4">
                     @foreach($likeUser as $like)
-                    <div class="col-sm-12 col-md-8 col-xl-3 overflow-hidden">
+                    <div class="col-sm-12 col-md-4 col-xl-3 overflow-hidden">
                         <img src="{{ asset('storage/images/'.$like->gambar) }}" class="img-fluid rounded img-terkait" alt="{{ $like->judul }}">
-                        <div class="text-wrap" style="width:200px;">
+                        <div class="text-wrap judul-terkait">
                             <a href="/news/{{ $like->id }}"
                                 class="text-dark fw-semibold text-decoration-none link-category-berita">{{ $like->judul }}</a>
                         </div>
                     </div>
                     @endforeach
+                    
                 </div>
               
             </div>

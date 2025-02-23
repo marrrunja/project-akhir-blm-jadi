@@ -29,7 +29,6 @@
             <aside class="enigma-sidebar">
                 <div class="enigma-spotlight">
                     <img src="{{ asset('storage/images/' . $firstRandomNews['gambar']) }}" alt="Space" class="enigma-spotlight-img">
-                    <span class="enigma-tag">Trending</span>
                     <h3><a href="/news/{{ $firstRandomNews['id'] }}" class="text-dark text-decoration-none link-category-berita">{{ $firstRandomNews["judul"] }}</a></h3>
                     <div class="enigma-pagination">
                         <span class="enigma-page-dot active"></span>
@@ -54,7 +53,7 @@
             </aside>
         </main>
     </div>
-    <div class="row mb-5 justify-content-center">
+    <!-- <div class="row mb-5 justify-content-center">
         <h3 class="mb-3">Terbaru</h3>
         <hr class="garis">
         @foreach($carousels as $carousel)
@@ -72,8 +71,9 @@
             </div>
         </div>
         @endforeach
-    </div>
+    </div> -->
     <div class="row justify-content-center">
+        <h1>Semua Berita</h1>
         <hr class="garis">
         @foreach($news as $berita)
         <div class="col-10 col-md-5 col-xl-3 mb-2 mb-md-5">
@@ -81,7 +81,7 @@
                 <img src="{{ asset('storage/images/' . $berita->gambar) }}" class="card-img-top"
                     alt="{{ $berita->gambar }}">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="/news/{{ $berita->id }}">{{ $berita->judul }}</a></h5>
+                    <h5 class="card-title"><a href="/news/{{ $berita->id }}" class="text-decoration-none link-category-berita">{{ $berita->judul }}</a></h5>
                     <a href="/user/berita/{{ $berita->userNews->id }}"
                         class="card-subtitle mb-2 text-body-secondary">{{ $berita->userNews->nama }} |</a>
                     <a href="/category/{{ $berita->kategoriNews->id }}">{{ $berita->kategoriNews->kategori }}</a>

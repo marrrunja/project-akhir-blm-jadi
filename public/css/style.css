@@ -205,7 +205,9 @@ body{
     height:200px;
     object-fit:cover;
 }
-
+.judul-terkait{
+    width: 200px;
+}
 
 @media (max-width: 768px) {
     .enigma-wrapper{
@@ -234,5 +236,16 @@ body{
     }
     .enigma-form-wrapper{
         max-width: 100% !important;
+    }
+}
+
+@media (max-width:576px){
+    .img-terkait{
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+    }
+    .judul-terkait{
+        width: 100%;
     }
 }

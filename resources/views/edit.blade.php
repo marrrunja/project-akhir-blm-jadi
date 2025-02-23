@@ -7,7 +7,7 @@
         <form method="post" action="{{ route('news.update', $news->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <h3>Form Ubah data</h3>
+            <h1 class="text-center mb-4">Form Ubah data</h1>
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-8 col-xl-6">
                     <div class="card">
