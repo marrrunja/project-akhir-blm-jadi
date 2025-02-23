@@ -160,7 +160,6 @@ class NewsController extends Controller
                 Storage::disk('public')->delete('images/' . $fotoLama);
             }
             $fotoUpdate = $fotoBaru;
-            echo "Foto baru bro <br>";
             // var_dump($fotoUpdate);die;
             $ekstensiValid = ["jpg", "jpeg", "png", "webp"];
             if(!in_array($fotoUpdate->getClientOriginalExtension(), $ekstensiValid)){
