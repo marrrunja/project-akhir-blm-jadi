@@ -14,7 +14,6 @@
         </nav>
         <h1 class="font-utama mt-4 mb-5">Berita Saya</h1>
         <div class="row gap-3 justify-content-center">
-            @foreach($news as $berita)
             <div class="col-10 col-md-5 col-xl-3">
                 @if (Session::has('status'))
                 <div class="alert alert-success">
@@ -26,14 +25,20 @@
                     {{ Session::get('error') }}
                 </div>
                 @endif
+            </div>
+            @foreach($news as $berita)
+            <div class="col-10 col-md-5 col-xl-3">
                 <div class="card border-0 shadow-sm">
                     <img src="{{ asset('storage/images/' . $berita->gambar) }}" class="card-img-top"
                         alt="{{ $berita->gambar }}">
                     <div class="card-body">
-                        <h5 class="card-title"><a href="/news/{{ $berita->id }}" class="link-category-berita text-decoration-none">{{ $berita->judul }}</a></h5>
+                        <h5 class="card-title"><a href="/news/{{ $berita->id }}"
+                                class="link-category-berita text-decoration-none">{{ $berita->judul }}</a></h5>
                         <a href="/user/berita/{{ $berita->userNews->id }}"
-                            class="card-subtitle mb-2 text-body-secondary text-decoration-none link-category-berita">{{ $berita->userNews->nama }} |</a>
-                        <a href="/category/{{ $berita->kategoriNews->id }}" class="text-decoration-none text-secondary link-category-berita">{{ $berita->kategoriNews->kategori }}</a>
+                            class="card-subtitle mb-2 text-body-secondary text-decoration-none link-category-berita">{{ $berita->userNews->nama }}
+                            |</a>
+                        <a href="/category/{{ $berita->kategoriNews->id }}"
+                            class="text-decoration-none text-secondary link-category-berita">{{ $berita->kategoriNews->kategori }}</a>
                         <div>
                             <small>{{ $berita->created_at->diffForHumans() }}</small>
                         </div>
