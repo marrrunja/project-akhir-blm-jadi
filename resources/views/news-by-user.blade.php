@@ -34,7 +34,9 @@
                         <a href="/category/{{ $berita->kategoriNews->id }}">{{ $berita->kategoriNews->kategori }}</a>
                         <small>{{ $berita->created_at->diffForHumans() }}</small>
                         <!-- <p class="card-text">{{ Str::limit($berita->body,70) }}</p> -->
-                        <a href="/news/{{ $berita->id }}" class="text-decoration-none link-category-berita">Baca Selengkapnya &raquo</a>
+                        <div>
+                            <a href="/news/{{ $berita->id }}" class="text-decoration-none link-category-berita">Baca Selengkapnya &raquo</a>
+                        </div>
                     </div>
                 </div>
             </div>
