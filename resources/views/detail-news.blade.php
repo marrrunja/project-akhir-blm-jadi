@@ -63,7 +63,7 @@
                         <img src="{{ asset('storage/images/'.$like->gambar) }}" class="img-fluid rounded img-terkait" alt="{{ $like->judul }}">
                         <div class="text-wrap judul-terkait">
                             <a href="/news/{{ $like->id }}"
-                                class="text-dark fw-semibold text-decoration-none link-category-berita">{{ $like->judul }}</a>
+                                class="text-dark fw-semibold text-decoration-none link-category-berita text-justify">{{ $like->judul }}</a>
                         </div>
                     </div>
                     @endforeach

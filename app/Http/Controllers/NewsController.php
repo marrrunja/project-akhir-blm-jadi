@@ -109,7 +109,6 @@ class NewsController extends Controller
         ->offset(0)
         ->limit(5)
         ->inRandomOrder()->get();
-        
 
         return view('detail-news', [
             'title' => 'Detail berita',

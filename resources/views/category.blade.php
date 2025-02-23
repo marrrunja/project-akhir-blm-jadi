@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     @endforeach
-                    <div class="d-flex mt-4 justify-content-center">
+                    <div class="d-flex mt-4 mb-4 justify-content-center">
                         {{ $news->links() }}
                     </div>
                 </div>
