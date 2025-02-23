@@ -83,8 +83,8 @@
                 <div class="card-body">
                     <h5 class="card-title"><a href="/news/{{ $berita->id }}" class="text-decoration-none link-category-berita">{{ $berita->judul }}</a></h5>
                     <a href="/user/berita/{{ $berita->userNews->id }}"
-                        class="card-subtitle mb-2 text-body-secondary text-decoration-none">{{ $berita->userNews->nama }} |</a>
-                    <a href="/category/{{ $berita->kategoriNews->id }}" class="text-decoration-none text-secondary">{{ $berita->kategoriNews->kategori }}</a>
+                        class="card-subtitle mb-2 text-body-secondary text-decoration-none link-category-berita">{{ $berita->userNews->nama }} |</a>
+                    <a href="/category/{{ $berita->kategoriNews->id }}" class="text-decoration-none text-secondary link-category-berita">{{ $berita->kategoriNews->kategori }}</a>
                     <div class="card-text">
                         <small>{{ $berita->created_at->diffForHumans() }}</small>
                     </div>
@@ -110,18 +110,5 @@
         </div>
     </div>
 </div>
-
-
-<script>
-    const images = [
-        "https://source.unsplash.com/400x250/?nature",
-        "https://source.unsplash.com/400x250/?technology",
-        "https://source.unsplash.com/400x250/?city",
-        "https://source.unsplash.com/400x250/?ocean"
-    ];
-
-    document.getElementById("randomImage").src = images[Math.floor(Math.random() * images.length)];
-
-</script>
 
 @endsection

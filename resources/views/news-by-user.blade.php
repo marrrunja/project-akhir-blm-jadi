@@ -30,9 +30,9 @@
                     <div class="card-body">
                         <h5 class="card-title"><a href="/news/{{ $berita->id }}" class="text-decoration-none link-category-berita">{{ $berita->judul }}</a></h5>
                         <a href="/user/berita/{{ $berita->userNews->id }}"
-                            class="card-subtitle mb-2 text-body-secondary">{{ $berita->userNews->nama }} |</a>
-                        <a href="/category/{{ $berita->kategoriNews->id }}">{{ $berita->kategoriNews->kategori }}</a>
-                        <small>{{ $berita->created_at->diffForHumans() }}</small>
+                            class="card-subtitle mb-2 text-body-secondary text-decoration-none link-category-berita">{{ $berita->userNews->nama }} |</a>
+                        <a href="/category/{{ $berita->kategoriNews->id }}"class="text-decoration-none link-category-berita text-secondary">{{ $berita->kategoriNews->kategori }}</a>
+                        <small class="d-block">{{ $berita->created_at->diffForHumans() }}</small>
                         <!-- <p class="card-text">{{ Str::limit($berita->body,70) }}</p> -->
                         <div>
                             <a href="/news/{{ $berita->id }}" class="text-decoration-none link-category-berita">Baca Selengkapnya &raquo</a>
