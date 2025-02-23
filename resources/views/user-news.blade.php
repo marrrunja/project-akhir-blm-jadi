@@ -14,15 +14,17 @@
         </nav>
         <h1 class="font-utama mt-4 mb-5">Berita Saya</h1>
         <div class="row gap-3 justify-content-center">
-            <div class="col-10 col-md-5 col-xl-3">
+            <div class="col-12">
                 @if (Session::has('status'))
-                <div class="alert alert-success">
+                <div class="alert alert-success d-flex justify-content-between">
                     {{ Session::get('status') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
                 @if (Session::has('error'))
                 <div class="alert alert-danger">
                     {{ Session::get('error') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 @endif
             </div>
