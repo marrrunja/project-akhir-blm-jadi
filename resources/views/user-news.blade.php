@@ -32,11 +32,12 @@
                     <div class="card-body">
                         <h5 class="card-title"><a href="/news/{{ $berita->id }}" class="link-category-berita text-decoration-none">{{ $berita->judul }}</a></h5>
                         <a href="/user/berita/{{ $berita->userNews->id }}"
-                            class="card-subtitle mb-2 text-body-secondary">{{ $berita->userNews->nama }} |</a>
-                        <a href="/category/{{ $berita->kategoriNews->id }}">{{ $berita->kategoriNews->kategori }}</a>
-                        <small>{{ $berita->created_at->diffForHumans() }}</small>
-                        <p class="card-text">{{ Str::limit($berita->body,90) }}</p>
-                        <div class="d-flex gap-2">
+                            class="card-subtitle mb-2 text-body-secondary text-decoration-none">{{ $berita->userNews->nama }} |</a>
+                        <a href="/category/{{ $berita->kategoriNews->id }}" class="text-decoration-none text-secondary">{{ $berita->kategoriNews->kategori }}</a>
+                        <div>
+                            <small>{{ $berita->created_at->diffForHumans() }}</small>
+                        </div>
+                        <div class="d-flex gap-2 mt-2 mb-2">
                             <a href="/news/edit/{{ $berita->id }}" class="btn btn-primary">Update data</a>
                             <form method="post" action="{{ route( 'news.destroy', $berita->id ) }}">
                                 @csrf
@@ -44,7 +45,6 @@
                                 <button type="submit" class="btn btn-danger">Hapus</button>
                             </form>
                         </div>
-                        <a href="/news/{{ $berita->id }}" class="text-decoration-none link-category-berita">Baca Selengkapnya &raquo</a>
                     </div>
                 </div>
             </div>
