@@ -59,7 +59,7 @@ Route::controller(LoginController::class)->group(function(){
     
     Route::post('/login','redirectToNews')
     ->middleware(LoginMiddleware::class);
-    Route::delete('/logout', 'logout');
+    Route::post('/logout', 'logout');
 });
 Route::view('/template', 'template');
 Route::view('/about','project.about');
