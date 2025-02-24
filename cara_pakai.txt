@@ -1,6 +1,7 @@
 
 Notess!!!
 - pertama jalankan php artisan db:seed
+ini akan membuat tiga kategori di migrasinya, dan jangan lupa untuk menambahkan user serta newsnya
 karena disini yang paling penting adalah kategorinya, terdapat 3 kategorinya
 
 
