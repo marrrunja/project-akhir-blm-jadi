@@ -8,7 +8,6 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/news">Home</a></li>
                 <li class="breadcrumb-item">Berita Saya</li>
-
                 <li class="breadcrumb-item active" aria-current="page">{{ Session::get('nama') }}</li>
             </ol>
         </nav>

@@ -58,7 +58,6 @@
                             </a>
                             <small class="d-block text-secondary">{{ $sport->kategoriNews->kategori }}</small>
                         </div>
-
                     </li>
                     @endforeach
                     @foreach($healths as $health)

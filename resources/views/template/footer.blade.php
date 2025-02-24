@@ -8,7 +8,6 @@
           Website ini menyediakan berita terkini dengan berbagai kategori menarik. Dapatkan informasi terbaru hanya di sini.
         </p>
       </div>
-
       <!-- Kolom 2 -->
       <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
         <h5 class="text-uppercase mb-4 font-weight-bold text-white">Kategori</h5>
@@ -16,7 +15,6 @@
         <p><a class="text-white" style="text-decoration: none;">Kesehatan</a></p>
         <p><a class="text-white" style="text-decoration: none;">Kuliner</a></p>
       </div>
-
       <!-- Kolom 3 -->
       <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
         <h5 class="text-uppercase mb-4 font-weight-bold text-white">Tautan Cepat</h5>

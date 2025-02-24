@@ -1,0 +1,6 @@
+
+Notess!!!
+- pertama jalankan php artisan db:seed
+karena disini yang paling penting adalah kategorinya, terdapat 3 kategorinya
+
+
