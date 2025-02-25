@@ -34,7 +34,7 @@
                         alt="{{ $berita->gambar }}">
                     <div class="card-body">
                         <h5 class="card-title"><a href="/news/{{ $berita->id }}"
-                                class="link-category-berita text-decoration-none">{{ $berita->judul }}</a></h5>
+                                class="link-category-berita text-decoration-none">{{ Str::words($berita->judul,4) }}</a></h5>
                         <a href="/user/berita/{{ $berita->userNews->id }}"
                             class="card-subtitle mb-2 text-body-secondary text-decoration-none link-category-berita">{{ $berita->userNews->nama }}
                             |</a>
