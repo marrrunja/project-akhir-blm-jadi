@@ -15,7 +15,7 @@
                             <div class="text-danger">{{ $errors->first('foto') }}</div>
                             @endif
                             @if (Session::has('error'))
-                            <div class="alert alert-danger">
+                            <div class="alert alert-danger d-flex justify-content-between">
                                 {{ Session::get('error') }}
                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
