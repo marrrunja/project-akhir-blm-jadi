@@ -22,5 +22,8 @@ class CategorySeeder extends Seeder
         Category::create([
             'kategori' => 'Berita Kuliner'
         ]);
+        Category::create([
+            'kategori' => 'Berita pendidikan'
+        ]);
     }
 }

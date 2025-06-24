@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
-
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
+use Illuminate\Support\Facades\DB;
 class NewsController extends Controller
 {
     public function welcome(){
@@ -17,28 +19,26 @@ class NewsController extends Controller
     }
     public function index():Response
     {
-        $categories = Category::all();
+        DB::enableQueryLog();
         $carousels = News::offset(0)->limit(3)->orderby('id', 'DESC')->get();
         $randomNews = News::where('category_id',random_int(1,3))->latest();
         $firstRandomNews = $randomNews->get()->toArray()[random_int(0,count($randomNews->get())-1)];
-        $news = News::paginate(10);
+        $news = News::paginate(8);
+
+        $data = [
+            'title'=> 'berita',
+            'news' => $news,
+            'carousels' => $carousels,
+            'randomNews' => $randomNews->get(),
+            'firstRandomNews' => $firstRandomNews
+        ];
+
         return response()
-            ->view('news', [
-                'title'=> 'berita',
-                'news' => $news,
-                'carousels' => $carousels,
-                'categories' => $categories,
-                'randomNews' => $randomNews->get(),
-                'firstRandomNews' => $firstRandomNews
-            ]);
+        ->view('news', $data);
     }
     public function redirectForm(){
         $categories = Category::all();
         return view('input-berita',["categories" => $categories]);
-    }
-    public function create()
-    {
-        //
     }
 
     private function isNotValidInputUser($judul, $body, $kategori):bool
@@ -47,39 +47,27 @@ class NewsController extends Controller
     }
     public function store(Request $request):RedirectResponse
     {
-        $author = $request->input('author');
-        $judul = $request->input('judul');
-        $body = $request->input('body');
+        $validate = $request->validate([
+            'judul' => 'required',
+            'body' => 'required',
+            'category_id' => 'required',
+            'foto' => 'required|mimes:jpg,png,jpeg,webp|max:2000'
+        ]);
+        $namaFoto = $request->file('foto')->getClientOriginalName();
+        $namaFoto .= '-'.Str::uuid();
+        $namaFoto = Str::replace(' ', '', $namaFoto);
         $user_id = $request->session()->get('id');
-        // var_dump($user_id);die;
-        $kategori = (int)$request->input('kategori');
-        
-        if($this->isNotValidInputUser($judul, $body, $kategori))
-        {
-            return redirect()->route('form')->with('error', 'Inputan tidak boleh ada yang kosong!');
-        }
-        
-        if($request->hasFile('foto')){
-            $foto = $request->file('foto');
-            $ekstensiValid = ["jpg", "jpeg", "png", "webp"];
-            if(!in_array($foto->getClientOriginalExtension(), $ekstensiValid)){
-                return redirect()->route('form')->with('error', 'Ekstensi gambar tidak valid!');
-            }
-            if($foto->getSize() > 2000000){
-                return redirect()->route('form')->with('error', 'gambar terlalu besar');
-            }
 
-            $namaFoto = $request->foto->store('images', 'public');
-            News::create([
-                'judul' => $judul,
-                'body' => $body,
-                'gambar' => basename($namaFoto),
-                'category_id' => $kategori,
-                'user_id' => $user_id,
-            ]);
-            return redirect()->route('news')->with('status', 'berhasil menambahkan data');    
-        } else{
-            return redirect()->route('form')->with('error', "Masukkan foto!!");
+        // store foto ke images
+        $request->file('foto')->storeAs('images', $namaFoto, 'public');
+        $manager = new ImageManager(new Driver());
+        $image = $manager->read(public_path("storage/images/{$namaFoto}"))->cover(1200,1200);
+        $newArray = array_merge($validate, ['user_id' => $user_id, 'gambar' => $namaFoto]);
+        try{
+            News::create($newArray);
+            return redirect()->back()->with('status', 'Berhasil membuat berita');
+        }catch(\Exception $e){
+             return redirect()->back()->with('status', "error {$e->getMessage()}");
         }
     }
 
@@ -101,9 +89,7 @@ class NewsController extends Controller
        }
 
         $beritaTerbaru = News::offset(0)->limit(6)->orderby('id', 'DESC')->get();
-        $categories = Category::all();
         $newsOne = News::where('id', $id)->get();
-        
         $likeUser = News::where('id','<>', $id )
         ->where('category_id',$newsOne->toArray()[0]["category_id"])
         ->offset(0)
@@ -113,37 +99,33 @@ class NewsController extends Controller
         return view('detail-news', [
             'title' => 'Detail berita',
             'news' => $newsOne->first(),
-            'categories' => $categories,
             'beritaTerbaru' => $beritaTerbaru,
             'likeUser' => $likeUser
         ]);
     }
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         if(!$this->checkIsIdEmpty($id)){
             return redirect('/news');
         }
-        $categories = Category::all();
         $news = News::find($id);
         return view('edit', [
             'title' => 'Edit data',
             'news' => $news,
-            'categories' => $categories
         ]);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
 
     private function isEmptyGambar($data){
         return empty($data);
     }
     public function update(Request $request, string $id)
     {
+        $validate = $request->validate([
+            'body' => 'required',
+            'kategori' => 'required',
+            'gambar' => 'image|mimes:jpg,png,jpeg,webp'
+        ]);
+
         $fotoUpdate = NULL;
         $id = $request->input('id');
         $body = $request->input('body');
@@ -151,40 +133,34 @@ class NewsController extends Controller
         $kategori = $request->input('kategori');
         $fotoBaru = $request->file('gambar');
         $fotoLama = $request->input('foto');
-        // var_dump($fotoLama);die;
+        $manager = new ImageManager(new Driver());
         if($this->isEmptyGambar($fotoBaru)){
             $fotoUpdate = $fotoLama;
-            var_dump($fotoUpdate);
         } else {
             if(Storage::disk('public')->exists('images/' . $fotoLama)){
                 Storage::disk('public')->delete('images/' . $fotoLama);
             }
             $fotoUpdate = $fotoBaru;
-            // var_dump($fotoUpdate);die;
-            $ekstensiValid = ["jpg", "jpeg", "png", "webp"];
-            if(!in_array($fotoUpdate->getClientOriginalExtension(), $ekstensiValid)){
-                return redirect()->back()->with('error', 'Ekstensi gambar tidak valid!');
-            }
-            if($fotoUpdate->getSize() > 2000000){
-                return redirect()->back()->with('error', 'gambar terlalu besar');
-            }
-            $fotoUpdate = $request->gambar->store('images', 'public');
-            $fotoUpdate = basename($fotoUpdate);
+            $fotoUpdate = Str::uuid().'-'.$fotoUpdate->getClientOriginalName();
+            $fotoUpdate = Str::replace(' ', '', $fotoUpdate);
+            $request->file('gambar')->storeAs('images', $fotoUpdate, 'public');
         }
+        $image = $manager->read(public_path("storage/images/{$fotoUpdate}"))->cover(1200,1200);
+        $image->save();
 
-        News::find($id)->update([
-            'judul' => $judul,
-            'body' => $body,
-            'category_id' => $kategori,
-            'gambar' => $fotoUpdate
-        ]);
-        return redirect()->back()->with('status', 'berhasil mengupdate data');
-        
+        try{
+            News::findOrFail($id)->update([
+                'judul' => $judul,
+                'body' => $body,
+                'category_id' => $kategori,
+                'gambar' => $fotoUpdate
+            ]);
+            return redirect()->back()->with('status', 'Berhasil mengupdate data');
+        }catch(\Exception $e){
+            return redirect()->back()->with('error', 'Gagal mengupdate data '.$e->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $news = News::find($id);
@@ -212,7 +188,6 @@ class NewsController extends Controller
         return view('news-by-user', [
             'title'=> 'nothing',
             'news'  => $news->paginate(6),
-            'categories' => $categories,
             'carousels' => $categories,
             'username' => $username
         ]);
@@ -252,13 +227,21 @@ class NewsController extends Controller
     }
 
     public function getNewsUser(Request $request, $id){
-        $categories = Category::all();
         $id_user = $request->session()->get('id');
         $news = News::where('user_id', $id_user)->paginate(6);
         return view('user-news', [
             'title'=> 'Berita',
             'news' => $news,
-            'categories' => $categories
         ]);
+    }
+    public function getCompleteBody()
+    {
+        $id = request('id');
+        $news = News::where('id', $id)->first();
+        $data = [
+            'news' => $news->body,
+            'id' => $news->id
+        ];
+        return view('partial.complete', $data)->render();
     }
 }

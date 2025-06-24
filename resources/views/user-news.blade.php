@@ -12,7 +12,7 @@
             </ol>
         </nav>
         <h1 class="font-utama mt-4 mb-5">Berita Saya</h1>
-        <div class="row gap-3 justify-content-center">
+        <div class="row gap-5 gap-md-3 justify-content-center">
             <div class="col-12">
                 @if (Session::has('status'))
                 <div class="alert alert-success d-flex justify-content-between">

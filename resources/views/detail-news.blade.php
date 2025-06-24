@@ -27,8 +27,10 @@
                         </div>
                     </figure>
                 </div>
-                <div class="mt-3 text-wrap lh-lg">
-                    {{ $news->body }}
+                <div class="mt-3 text-wrap lh-lg" id="body-berita">
+                    {{-- {{ Str::word($berita->body,70) }} --}}
+                     {!! \Illuminate\Support\Str::words($news->body,100) !!}.
+                     <span id="toggle-berita" data-id="{{ $news->id }}" style="cursor:pointer;" class="text-primary">baca selengkapnya</span>
                 </div>
                 <div class=""><a href="/news" class="text-decoration-none link-category-berita ">&laquo Kembali ke halaman utama</a></div>
             </div>
@@ -76,3 +78,7 @@
 
 </section>
 @endsection
+
+@push('scripts')
+<script src="{{ asset('resources/js/detail.js') }}"></script>
+@endpush

@@ -79,8 +79,6 @@ body{
     font-style: normal;
     font-weight: 900;
  }
-
-
 /* wrapper */
 
 .enigma-wrapper {
@@ -207,6 +205,11 @@ body{
 }
 .judul-terkait{
     width: 200px;
+}
+.card-img-top{
+    width: 100% !important;
+    min-height: 250px !important;
+    max-height: 250px !important;
 }
 
 @media (max-width: 768px) {

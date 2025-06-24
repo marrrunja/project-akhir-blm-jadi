@@ -83,7 +83,6 @@
                             </a>
                             <small class="d-block text-secondary">{{ $culinary->kategoriNews->kategori }}</small>
                         </div>
-
                     </li>
                     @endforeach
                 </ul>

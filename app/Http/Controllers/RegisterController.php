@@ -13,7 +13,8 @@ class RegisterController extends Controller
     public function redirectRegister(){
         return view('sign-up');
     }
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $nama = $request->input('nama');
         $password = $request->input('password');
         $email = $request->input('email');

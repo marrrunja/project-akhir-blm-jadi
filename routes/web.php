@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\NewsController;
@@ -10,8 +9,6 @@ use App\Http\Middleware\RegisterMiddleware;
 use App\Http\Controllers\RegisterController;
 use App\Http\Middleware\SessionHasMiddleware;
 
-
-
 Route::controller(NewsController::class)->group(function(){
     Route::get('/news','index')
         ->middleware(SessionHasMiddleware::class)
@@ -20,6 +17,7 @@ Route::controller(NewsController::class)->group(function(){
     Route::post('/form', 'store');
     Route::get('/news/{id}', 'show')
         ->middleware(SessionHasMiddleware::class);
+        
     Route::get('/form', 'redirectForm')
         ->middleware(SessionHasMiddleware::class)
         ->name('form');
@@ -40,6 +38,7 @@ Route::controller(NewsController::class)->group(function(){
         ->middleware(SessionHasMiddleware::class);
 
     Route::get('/', 'welcome');
+    Route::get('/body/get','getCompleteBody');
     
 });
 

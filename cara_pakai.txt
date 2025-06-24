@@ -4,4 +4,3 @@ Notess!!!
 ini akan membuat tiga kategori di migrasinya, category harus ditambahkan, karna nanti akan error, karena kategori ini 
 adalah tabel master, jadi harus ditambahkan dari awal
 
-

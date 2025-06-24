@@ -11,4 +11,8 @@ class Category extends Model
     public function news():HasMany{
         return $this->hasMany(News::class);
     }
+    public static function getAllCategories(){
+        $categories = self::all();
+        return $categories;
+    }
 }

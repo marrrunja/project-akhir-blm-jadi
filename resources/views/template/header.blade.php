@@ -19,7 +19,7 @@
                         Kategori
                     </a>
                     <ul class="dropdown-menu">
-                        @foreach($categories as $category)
+                        @foreach(App\Models\Category::getAllCategories() as $category)
                         <li><a class="dropdown-item" href="/category/{{ $category->id }}">{{ $category->kategori }}</a>
                         </li>
                         @endforeach

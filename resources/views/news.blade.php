@@ -1,8 +1,6 @@
 @extends('template')
 
 @section('title', $title)
-
-
 @section('body')
 <div class="container pt-5">
     <nav aria-label="breadcrumb">
@@ -34,7 +32,6 @@
                         <span class="enigma-page-dot active"></span>
                         <span class="enigma-page-dot"></span>
                         <span class="enigma-page-dot"></span>
-
                     </div>
                     <div class="enigma-news-feed">
                         @foreach($randomNews as $random)
@@ -110,5 +107,4 @@
         </div>
     </div>
 </div>
-
 @endsection

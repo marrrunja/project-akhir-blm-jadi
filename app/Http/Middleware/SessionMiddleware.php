@@ -9,14 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SessionMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Session::has('isLogin')){
+        if(Session::has('isLogin'))
+        {
             return redirect('/news');
         }
         return $next($request);
